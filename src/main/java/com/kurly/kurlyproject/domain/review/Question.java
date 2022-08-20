@@ -3,15 +3,14 @@ package com.kurly.kurlyproject.domain.review;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.kurly.kurlyproject.domain.category.Category;
 import lombok.Getter;
+import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
-@Getter
+@Getter @Setter
 public class Question {
 
 
@@ -22,10 +21,23 @@ public class Question {
 
     private String asking;
 
-    //질문 에넘을 따로 할건지 String으로 파싱할건지 물어야겠따.
-//    private ArrayList<String> answers =new ArrayList<>();
+    private String answers;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Category category;
+
+    @OneToMany(mappedBy = "question", cascade = CascadeType.ALL)
+    private List<KeywordReview> keywordReviewList =new ArrayList<>();
 
 
+    /*
+     연관관계 메소드
+     */
+
+    public void addCategory(Category category){
+        this.category =category;
+        category.getQuestionList().add(this);
+    }
 
 
 
