@@ -1,11 +1,12 @@
 package com.kurly.kurlyproject.domain.review;
 
-import com.kurly.kurlyproject.domain.item.Item;
+import com.kurly.kurlyproject.domain.Item;
 import com.kurly.kurlyproject.domain.member.Member;
 import lombok.Getter;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -17,26 +18,40 @@ public class Review {
     @Column(name="review_id")
     private Long id;
 
-    @ManyToOne
+    private Date date;
+
+    @ManyToOne(fetch = FetchType.LAZY)
     private Member member;
 
+    @ManyToOne(fetch = FetchType.LAZY)
     private Item item;
 
     @Lob
-    private String content;
+    private String itemContent;
+
+    @Lob
+    private String deliveryContent;
 
     private int star;
 
     @Enumerated(EnumType.STRING)
     private DeliverySatisfaction deliverySatisfaction; // good, bad
 
-    @OneToMany(mappedBy = "review")
-    private List<KeywordReview> keywordReviews =new ArrayList<>();
+    @OneToMany(mappedBy = "review",  cascade = CascadeType.ALL)
+    private List<KeywordReview> keywordReviewList =new ArrayList<>();
 
+    /*
+        연관관계 메소드
+     */
 
+    public void addItem(Item item){
+        this.item =item;
+        item.getReviewList().add(this);
+    }
 
-    //리뷰 생성 키워드
-    //이걸로 키워드 레코드도 생성시킨다.
-    //오류 발생을 어떻게 할건지는 노의를 해봐야할 듯
+    public void addMember(Member member){
+        this.member =member;
+        member.getReviewList().add(this);
+    }
 
 }

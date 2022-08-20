@@ -1,7 +1,9 @@
-package com.kurly.kurlyproject.domain.item;
+package com.kurly.kurlyproject.domain;
 
 import com.kurly.kurlyproject.domain.category.CategoryItem;
+import com.kurly.kurlyproject.domain.review.Review;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -9,23 +11,36 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @Getter
-public abstract class Item {
+public class Item {
 
     @Id
     @GeneratedValue
     @Column(name = "item_id")
     private Long id;
 
-    //상속 관계 맵핑
     private String name;
+    private int price;
+    private int discountPrice;
+    private String imageUrl;
 
     @OneToMany(mappedBy = "item")
     private List<CategoryItem> categoryItemList = new ArrayList<>();
 
-//    @ManyToMany(mappedBy = "items")
-//    private List<Category> categories =new ArrayList<>();
+    @OneToMany(mappedBy="item")
+    private List<Review> reviewList =new ArrayList<>();
+
+    public Item(String name, int price, int discountPrice, String imageUrl) {
+        this.name = name;
+        this.price = price;
+        this.discountPrice = discountPrice;
+        this.imageUrl = imageUrl;
+    }
+
+
+    /*
+        연관 관계 메소드
+     */
 
     /*
         비즈니스 로직
@@ -34,11 +49,4 @@ public abstract class Item {
         1. 재고 수량 증가 로직
         2. 감소 로직
      */
-
-
-
-
-
-
-
 }

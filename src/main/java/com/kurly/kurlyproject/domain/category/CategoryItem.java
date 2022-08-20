@@ -1,13 +1,13 @@
 package com.kurly.kurlyproject.domain.category;
 
-import com.kurly.kurlyproject.domain.item.Item;
+import com.kurly.kurlyproject.domain.Item;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
 
 @Entity
-@Getter
+@Setter @Getter
 public class CategoryItem {
 
     @Id
@@ -24,9 +24,18 @@ public class CategoryItem {
     private Category category;
 
 
+    /*
+        연관관계 메소드
+     */
+    private void addCategory(Category category){
+        this.category =category;
+        category.getCategoryItemList().add(this);
+    }
+    private void addItem(Item item){
+        this.item = item;
+        item.getCategoryItemList().add(this);
+    }
 
-    //카테고리별 아이템 리턴 로직 구현
 
-    //
 
 }

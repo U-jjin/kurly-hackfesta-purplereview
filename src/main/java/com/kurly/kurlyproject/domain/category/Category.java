@@ -1,5 +1,6 @@
 package com.kurly.kurlyproject.domain.category;
 
+import com.kurly.kurlyproject.domain.review.Question;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -26,15 +27,19 @@ public class Category {
     @OneToMany(mappedBy = "parent")
     private List<Category> child = new ArrayList<>();
 
-
     @OneToMany(mappedBy="category")
     private List<CategoryItem> categoryItemList = new ArrayList<>();
 
+    @OneToMany(mappedBy = "category")
+    private List<Question> questionList =new ArrayList<>();
 
+
+    //연관관계 메소드
     public void addChildCategory(Category child){
         this.child.add(child);
         child.setParent(this);
     }
+
 
 
 }
