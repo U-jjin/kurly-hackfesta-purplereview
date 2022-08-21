@@ -23,19 +23,15 @@ public class CategoryItem {
     @JoinColumn(name="category_id")
     private Category category;
 
-
     /*
         연관관계 메소드
      */
-    private void addCategory(Category category){
+    public void addCategory(Category category){
         this.category =category;
         category.getCategoryItemList().add(this);
     }
-    private void addItem(Item item){
+    public void addItem(Item item){
         this.item = item;
         item.getCategoryItemList().add(this);
     }
-
-
-
 }

@@ -13,7 +13,6 @@ import javax.persistence.*;
 @Getter @Setter
 public class Question {
 
-
     @Id
     @GeneratedValue
     @Column(name="question_id")
@@ -28,7 +27,6 @@ public class Question {
 
     @OneToMany(mappedBy = "question", cascade = CascadeType.ALL)
     private List<KeywordReview> keywordReviewList =new ArrayList<>();
-
 
     /*
      연관관계 메소드

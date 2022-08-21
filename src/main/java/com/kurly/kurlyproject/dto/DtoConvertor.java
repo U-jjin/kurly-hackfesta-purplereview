@@ -7,11 +7,7 @@ import com.kurly.kurlyproject.domain.category.CategoryItem;
 import com.kurly.kurlyproject.domain.review.KeywordReview;
 import com.kurly.kurlyproject.domain.review.Question;
 import com.kurly.kurlyproject.domain.review.Review;
-import com.kurly.kurlyproject.dto.ItemDTO;
-import com.kurly.kurlyproject.dto.KeywordReviewDTO;
-import com.kurly.kurlyproject.dto.QuestionDTO;
-import com.kurly.kurlyproject.dto.ReviewDTO;
-import com.kurly.kurlyproject.repository.CategoryItemRepository;
+import com.kurly.kurlyproject.dto.reviewDto.GetReviewDto;
 import com.kurly.kurlyproject.repository.KeywordReviewRepository;
 import com.kurly.kurlyproject.repository.QuestionRepository;
 import lombok.RequiredArgsConstructor;
@@ -30,40 +26,74 @@ public class DtoConvertor {
         ItemDTO 변환
      */
     public static ItemDTO convertToDto(Item item){
-        List<String> categories = new ArrayList<>();
+        List<String> categoryNameList = new ArrayList<>();
+
+        List<QuestionDTO> quesDtoList =new ArrayList<>();
 
         for(CategoryItem c : item.getCategoryItemList()){
-            categories.add(c.getCategory().getName());
-        }
+            Category parent = c.getCategory();
+            categoryNameList.add(parent.getName());
 
-        return new ItemDTO(item.getId(), item.getName(), item.getPrice(), item.getDiscountPrice(), item.getImageUrl(), categories);
+            for(Question q: parent.getQuestionList()){
+                quesDtoList.add(convertToDto(q));
+            }
+
+            while(parent.getParent() != null){
+                parent = parent.getParent();
+                categoryNameList.add(parent.getName());
+
+                for(Question q: parent.getQuestionList()){
+                    quesDtoList.add(convertToDto(q));
+                }
+            }
+        }
+        Collections.reverse(categoryNameList);
+        Collections.reverse(quesDtoList);
+        return new ItemDTO(item.getId(), item.getName(), item.getPrice(), item.getDiscountPrice(), item.getImageUrl(), categoryNameList, quesDtoList);
+    }
+
+    public static List<QuestionDTO> convertToQuestionDtoList(Item item){
+        List<QuestionDTO> quesDtoList =new ArrayList<>();
+
+        for(CategoryItem ci : item.getCategoryItemList()){
+            for(Question q : ci.getCategory().getQuestionList()){
+                quesDtoList.add(convertToDto(q));
+            }
+
+        }
+        return quesDtoList;
     }
 
     /*
      QuestionDTO 변환
      */
-    public QuestionDTO convertToDto(Question question){
+    public static QuestionDTO convertToDto(Question question){
         return new QuestionDTO(question.getId(), question.getAsking(), question.getAnswers().split("&"));
     }
 
+
+
     /*
         KeyWordReviewDTO 변환
+        리스트 변환 1
      */
+    public static List<KeywordReviewDTO> convertToKeyReviewDtoList(List<KeywordReview> keyReviewList){
+            List<KeywordReviewDTO> dtoList = new ArrayList<>();
+
+        for(KeywordReview keyreview: keyReviewList ) {
+                dtoList.add(new KeywordReviewDTO(keyreview.getQuestion().getId(),keyreview.getQuestion().getAsking(),keyreview.getAnswer()));
+        }
+        return dtoList;
+    }
+
     public KeywordReviewDTO convertToDto(KeywordReview keyReview){
-        return new KeywordReviewDTO( questionRepository.findOne(keyReview.getQuestion().getId()).getAsking(), keyReview.getAnswer());
+        return new KeywordReviewDTO(keyReview.getQuestion().getId(),keyReview.getQuestion().getAsking(), keyReview.getAnswer());
     }
     
-//    public ReviewDTO convertToDto(Review review){
-//        List<KeywordReviewDTO> keywordReviews = new ArrayList<>();
-//
-//        for(KeywordReview kr  :keywordReviewRepository.findKeywordReview(review.getId())){
-//            keywordReviews.add(convertToDto(kr));
-//        }
-//
-//        return new ReviewDTO(review.getId(), review.getDate(),
-//                review.getMember().getId(), review.getItem().getId(),
-//                review.getItemContent(), review.getStar(), review.getDeliverySatisfaction(),
-//                keywordReviews);
-//    }
+    public static GetReviewDto convertToDto(Review review){
+        List<KeywordReviewDTO> keywordReviewList = convertToKeyReviewDtoList(review.getKeywordReviewList());
+
+        return new GetReviewDto(review.getId(),review.getDate(),review.getMember().getName(),review.getItemContent(),review.getStar(),keywordReviewList);
+    }
 
 }

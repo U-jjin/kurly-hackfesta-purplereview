@@ -15,12 +15,13 @@ public class KeywordReviewRepository {
 
     private final EntityManager em;
 
-    public void save(Review review){
+    public void save(KeywordReview review){
         em.persist(review);
     }
 
-    public List<KeywordReview> findKeywordReview(Long reviewId){
-        //잗성된 리뷰에 대한 키워드 리뷰값 가져오기.
-        return em.createQuery("select kr from KeywordReview kr where kr.review.id = :reviewId",KeywordReview.class).getResultList();
+    //천천히 생각
+    public List<Long> findKeywordReview(Long itemId){
+        //작성된 리뷰에 대한 키워드 리뷰 카운트 값 가져오기.
+        return em.createQuery("select count(kr) from KeywordReview kr where kr.review.item.id=:itemId group by kr.answer",Long.class).setParameter("itemId",itemId).getResultList();
     }
 }

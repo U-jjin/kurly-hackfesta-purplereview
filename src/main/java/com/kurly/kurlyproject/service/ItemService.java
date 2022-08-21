@@ -1,12 +1,15 @@
 package com.kurly.kurlyproject.service;
 
 import com.kurly.kurlyproject.domain.Item;
+import com.kurly.kurlyproject.dto.DtoConvertor;
 import com.kurly.kurlyproject.dto.ItemDTO;
+import com.kurly.kurlyproject.dto.QuestionDTO;
 import com.kurly.kurlyproject.repository.ItemRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -15,14 +18,20 @@ import java.util.List;
 public class ItemService {
     private final ItemRepository itemRepository;
 
-    @Transactional
-    public void saveItem (Item item){
-        itemRepository.save(item);
+    public List<ItemDTO> findItems(){
+        List<ItemDTO> itemList = new ArrayList<>();
+
+        for(Item item:itemRepository.findAll()){
+            itemList.add(DtoConvertor.convertToDto(item));
+        }
+
+        return itemList;
     }
-    public List<Item> findItems(){
-        return itemRepository.findAll();
+    public ItemDTO findOne (Long itemId){
+        return DtoConvertor.convertToDto(itemRepository.findOne(itemId));
     }
-    public Item findOne (Long itemId){
-        return itemRepository.findOne(itemId);
-    }
+
+    //내일 오전에 구현
+//    public List<QuestionDTO> findQuestion(Long itemId){return itemRepository.findQuestion(itemId);};
+
 }

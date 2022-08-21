@@ -1,35 +1,47 @@
 package com.kurly.kurlyproject.controller;
 
 
-import com.kurly.kurlyproject.controller.dto.ReviewForm;
+import com.kurly.kurlyproject.dto.KeywordReviewDTO;
+import com.kurly.kurlyproject.dto.reviewDto.GetReviewDto;
+import com.kurly.kurlyproject.dto.reviewDto.PostReviewDto;
+import com.kurly.kurlyproject.repository.ItemRepository;
+import com.kurly.kurlyproject.repository.QuestionRepository;
+import com.kurly.kurlyproject.service.ItemService;
+import com.kurly.kurlyproject.service.QuestionService;
+import com.kurly.kurlyproject.service.ReviewService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.*;
 
-@Controller
+@RestController
+@Slf4j
 @RequiredArgsConstructor
 public class ReviewController {
 
-    //필요 서비스 생성
-    @PostMapping("/{itemId}/createReview")
-    public String review (@PathVariable("itemId") Long itemId, Model model ){
-        //해당 itemId의 카테고리별 질문 리스트를 가져와서 모델에 넣어서 보내주기.
-        model.addAttribute("itemId", itemId);
-        return "items/{itemId}/reviewForm";
+    private final ItemService itemService;
+    private final ItemRepository itemRepository;
+    private final ReviewService reviewService;
+    private final QuestionService questionService;
+    private final QuestionRepository questionRepository;
+
+    @PostMapping("/review/{itemId}")
+    public void create(@PathVariable("itemId") Long itemId, @RequestBody PostReviewDto review){
+
+        reviewService.save(review,itemId);
     }
 
-    @PostMapping("items/{itemId}/reviewForm")
-    public String create(ReviewForm form){
-        //생성자로  객체만들어서 디비에 저장
-        return "items/review";
-    }
+//    @GetMapping("/reviews")
+//    public void insertTest(){
+//
+//        KeywordReviewDTO keywordReviewDTO =new KeywordReviewDTO(Long.valueOf())
+//
+//        PostReviewDto postReviewDto =new PostReviewDto(Long.valueOf(3),"물품이 엄청 좋아요!","배송 잘받았어요.",5,"GOOD")
+//
+//
+//
+//
+//    }
 
-    //리뷰 조회
-    //해당 item을 누르면 해당 리뷰들을 볼 수 있도록
-    //리뷰스 페이지가 생성될 떄, 아이템 리스트를 보내기
 
 
 

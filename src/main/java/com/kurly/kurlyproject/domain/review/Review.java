@@ -2,23 +2,27 @@ package com.kurly.kurlyproject.domain.review;
 
 import com.kurly.kurlyproject.domain.Item;
 import com.kurly.kurlyproject.domain.member.Member;
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+
 import java.util.Date;
 import java.util.List;
 
 @Entity
-@Getter
+@Getter @Setter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Review {
-
     @Id
     @GeneratedValue
     @Column(name="review_id")
     private Long id;
-
-    private Date date;
+    private LocalDateTime date;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Member member;
@@ -33,12 +37,14 @@ public class Review {
     private String deliveryContent;
 
     private int star;
-
     @Enumerated(EnumType.STRING)
     private DeliverySatisfaction deliverySatisfaction; // good, bad
 
     @OneToMany(mappedBy = "review",  cascade = CascadeType.ALL)
     private List<KeywordReview> keywordReviewList =new ArrayList<>();
+
+
+
 
     /*
         연관관계 메소드
@@ -53,5 +59,32 @@ public class Review {
         this.member =member;
         member.getReviewList().add(this);
     }
+
+    public void addKeywordReview(KeywordReview keywordReview){
+        this.keywordReviewList.add(keywordReview);
+        keywordReview.addReview(this);
+    }
+
+
+    public static Review createReview( Member member, Item item, String itemContent, String deliveryContent, int star, String satiscation, List<KeywordReview>keywordReviews) {
+            Review review =new Review();
+
+            review.setDate(LocalDateTime.now());
+            review.addMember(member);
+            review.addItem(item);
+            review.setItemContent(itemContent);
+            review.setDeliveryContent(deliveryContent);
+            review.setStar(star);
+            review.setDeliverySatisfaction(DeliverySatisfaction.valueOf(satiscation));
+
+            for(KeywordReview keyreview : keywordReviews){
+                review.addKeywordReview(keyreview);
+            }
+
+            return review;
+    }
+
+
+
 
 }

@@ -2,10 +2,13 @@ package com.kurly.kurlyproject.repository;
 
 import com.kurly.kurlyproject.domain.Item;
 import com.kurly.kurlyproject.domain.review.Question;
+import com.kurly.kurlyproject.dto.DtoConvertor;
+import com.kurly.kurlyproject.dto.QuestionDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
+import java.util.ArrayList;
 import java.util.List;
 
 @Repository

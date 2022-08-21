@@ -18,7 +18,6 @@ public class Category {
     private Long id;
 
     private String name;
-
     private Long depth;
     @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name = "parent_id")
@@ -33,13 +32,20 @@ public class Category {
     @OneToMany(mappedBy = "category")
     private List<Question> questionList =new ArrayList<>();
 
+    public Category(String name, Long depth, Category parent) {
+        this.name = name;
+        this.depth = depth;
+        this.parent =parent;
+        parent.addChildCategory(this);
+    }
+
+    public Category() {
+
+    }
 
     //연관관계 메소드
     public void addChildCategory(Category child){
         this.child.add(child);
         child.setParent(this);
     }
-
-
-
 }

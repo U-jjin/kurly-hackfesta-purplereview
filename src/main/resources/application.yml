@@ -1,19 +1,19 @@
-
+#jdbc:mariadb://kurly-review-database.cfnt0znqvrnz.ap-northeast-2.rds.amazonaws.com:3306/kurly_review_database
 spring:
   datasource:
-    url: jdbc:mariadb://localhost:3306/kurly_review_DB
-    username: kurly
-    password: kurly
+    url: jdbc:mariadb://kurkurly-database-instance.cwjjoyxgkpoz.us-east-1.rds.amazonaws.com:3306/review_database
+    username: admin
+    password: kurly202208!
     driver-class-name: org.mariadb.jdbc.Driver
 
   jpa:
     hibernate:
       #    자동 탭 만들어주는 것
-      ddl-auto: create
+      ddl-auto: update
     properties:
       hibernate:
         format_sql: true
-         show_sql: true
+        show_sql: true
   thymeleaf:
     thymeleaf:
       prefix: classpath:/templates/

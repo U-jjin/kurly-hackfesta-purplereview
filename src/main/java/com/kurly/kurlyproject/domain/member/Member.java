@@ -14,6 +14,8 @@ public class Member {
     @Column(name = "member_id")
     private Long id;
     private String password;
+    @Column(name="member_name")
+
     private String name;
 
     private int age;
@@ -21,16 +23,7 @@ public class Member {
     @Enumerated(EnumType.STRING)
     private Gender gender;
 
-
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
     private List<Review> reviewList = new ArrayList<>();
-
-
-    /*
-        연관관계 메소드
-     */
-
-
-
 
 }

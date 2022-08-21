@@ -1,5 +1,6 @@
 package com.kurly.kurlyproject.domain;
 
+import com.kurly.kurlyproject.domain.category.Category;
 import com.kurly.kurlyproject.domain.category.CategoryItem;
 import com.kurly.kurlyproject.domain.review.Review;
 import lombok.Getter;
@@ -9,6 +10,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Entity
 @Getter
@@ -37,16 +39,9 @@ public class Item {
         this.imageUrl = imageUrl;
     }
 
+    public Item() {
 
-    /*
-        연관 관계 메소드
-     */
+    }
 
-    /*
-        비즈니스 로직
-        - setter 를 가지고 재고 수량 컨트롤 하는 것이 아니라.
-        - 엔티티 안에서 필요한 메소드를 만드는 것이 응집력을 높이는 객체지향형 코드.
-        1. 재고 수량 증가 로직
-        2. 감소 로직
-     */
+    //질문 리스트 반환
 }
