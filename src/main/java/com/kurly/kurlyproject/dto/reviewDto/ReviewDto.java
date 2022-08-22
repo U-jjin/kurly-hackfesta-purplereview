@@ -4,12 +4,11 @@ import com.kurly.kurlyproject.dto.KeywordReviewDTO;
 import lombok.Getter;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.*;
 @Getter
 
-public class GetReviewDto {
-    private Long id;
+public class ReviewDto {
+    private Long reviewId;
     private LocalDateTime date;
     private String memberName;
     private String content;
@@ -17,8 +16,8 @@ public class GetReviewDto {
     private List<KeywordReviewDTO> keywordReviews;
 
 
-    public GetReviewDto(Long id, LocalDateTime date, String memberName, String content, int star, List<KeywordReviewDTO> keywordReviews) {
-        this.id = id;
+    public ReviewDto(Long reviewId, LocalDateTime date, String memberName, String content, int star, List<KeywordReviewDTO> keywordReviews) {
+        this.reviewId = reviewId;
         this.date = date;
         this.memberName = memberName;
         this.content = content;

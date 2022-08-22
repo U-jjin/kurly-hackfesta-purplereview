@@ -7,7 +7,7 @@ import com.kurly.kurlyproject.domain.category.CategoryItem;
 import com.kurly.kurlyproject.domain.review.KeywordReview;
 import com.kurly.kurlyproject.domain.review.Question;
 import com.kurly.kurlyproject.domain.review.Review;
-import com.kurly.kurlyproject.dto.reviewDto.GetReviewDto;
+import com.kurly.kurlyproject.dto.reviewDto.ReviewDto;
 import com.kurly.kurlyproject.repository.KeywordReviewRepository;
 import com.kurly.kurlyproject.repository.QuestionRepository;
 import lombok.RequiredArgsConstructor;
@@ -90,10 +90,10 @@ public class DtoConvertor {
         return new KeywordReviewDTO(keyReview.getQuestion().getId(),keyReview.getQuestion().getAsking(), keyReview.getAnswer());
     }
     
-    public static GetReviewDto convertToDto(Review review){
+    public static ReviewDto convertToDto(Review review){
         List<KeywordReviewDTO> keywordReviewList = convertToKeyReviewDtoList(review.getKeywordReviewList());
 
-        return new GetReviewDto(review.getId(),review.getDate(),review.getMember().getName(),review.getItemContent(),review.getStar(),keywordReviewList);
+        return new ReviewDto(review.getId(),review.getDate(),review.getMember().getName(),review.getItemContent(),review.getStar(),keywordReviewList);
     }
 
 }

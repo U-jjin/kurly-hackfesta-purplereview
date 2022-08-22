@@ -29,7 +29,7 @@ public class Item {
     @OneToMany(mappedBy = "item")
     private List<CategoryItem> categoryItemList = new ArrayList<>();
 
-    @OneToMany(mappedBy="item")
+    @OneToMany(mappedBy="item", cascade = CascadeType.ALL)
     private List<Review> reviewList =new ArrayList<>();
 
     public Item(String name, int price, int discountPrice, String imageUrl) {
@@ -38,6 +38,8 @@ public class Item {
         this.discountPrice = discountPrice;
         this.imageUrl = imageUrl;
     }
+
+
 
     public Item() {
 

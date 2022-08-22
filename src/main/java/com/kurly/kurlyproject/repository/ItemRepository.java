@@ -3,6 +3,7 @@ package com.kurly.kurlyproject.repository;
 
 import com.kurly.kurlyproject.domain.Item;
 import com.kurly.kurlyproject.domain.review.KeywordReview;
+import com.kurly.kurlyproject.domain.review.Question;
 import com.kurly.kurlyproject.domain.review.Review;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -23,6 +24,8 @@ public class ItemRepository {
     public List<Item>findAll(){
         return em.createQuery("select i from Item i",Item.class).getResultList();
     }
+
+
 
 
 

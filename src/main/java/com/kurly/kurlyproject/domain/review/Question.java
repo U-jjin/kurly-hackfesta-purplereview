@@ -22,7 +22,7 @@ public class Question {
 
     private String answers;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     private Category category;
 
     @OneToMany(mappedBy = "question", cascade = CascadeType.ALL)

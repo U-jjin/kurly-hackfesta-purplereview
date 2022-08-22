@@ -2,7 +2,8 @@ package com.kurly.kurlyproject.controller;
 
 
 import com.kurly.kurlyproject.dto.ItemDTO;
-import com.kurly.kurlyproject.dto.reviewDto.GetReviewDto;
+import com.kurly.kurlyproject.dto.reviewDto.ReviewDto;
+import com.kurly.kurlyproject.dto.reviewDto.ReviewRatioDTO;
 import com.kurly.kurlyproject.service.ItemService;
 import com.kurly.kurlyproject.service.ReviewService;
 import lombok.RequiredArgsConstructor;
@@ -36,13 +37,13 @@ public class ItemController {
 
     @GetMapping("/items/{itemId}")
     @ResponseBody
-    public List<GetReviewDto> itemReviewList(@PathVariable("itemId") Long itemId){
+    public List<ReviewRatioDTO> itemReviewList(@PathVariable("itemId") Long itemId){
 
-        Map<String, Object> map = new HashMap<>();
-        map.put("reviewList",reviewService.findReviewsByItem(itemId));
+        //리뷰 조회는 보류
+//        Map<String, Object> map = new HashMap<>();
+//        map.put("reviewList",reviewService.findReviewsByItem(itemId));
 
-        //질문리스트에 따른 수치데이터도 put 필요
-        return reviewService.findReviewsByItem(itemId);
+        return reviewService.answerRate(itemId);
     }
 
 

@@ -66,25 +66,21 @@ public class Review {
     }
 
 
-    public static Review createReview( Member member, Item item, String itemContent, String deliveryContent, int star, String satiscation, List<KeywordReview>keywordReviews) {
+    public static Review createReview (Item item, Member member, String itemContent, String deliveryContent, int star, String satisfaction, List<KeywordReview> keywordReviewList) {
             Review review =new Review();
 
-            review.setDate(LocalDateTime.now());
             review.addMember(member);
             review.addItem(item);
+            review.setDate(LocalDateTime.now());
             review.setItemContent(itemContent);
             review.setDeliveryContent(deliveryContent);
             review.setStar(star);
-            review.setDeliverySatisfaction(DeliverySatisfaction.valueOf(satiscation));
+            review.setDeliverySatisfaction(DeliverySatisfaction.valueOf(satisfaction));
 
-            for(KeywordReview keyreview : keywordReviews){
+
+            for(KeywordReview keyreview : keywordReviewList) {
                 review.addKeywordReview(keyreview);
             }
-
             return review;
     }
-
-
-
-
 }

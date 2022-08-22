@@ -1,23 +1,25 @@
 package com.kurly.kurlyproject.dto.reviewDto;
 
 import com.kurly.kurlyproject.dto.KeywordReviewDTO;
-import lombok.Getter;
+import lombok.Data;
 
-import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
-@Getter
-public class PostReviewDto {
+@Data
+public class ReviewVO {
+
     private Long memberId;
     private String itemContent;
     private String deliveryContent;
     private int star;
     private String deliverySatisfaction;
-    private List<KeywordReviewDTO> keywordReviews;
+    private List<Map<String,String>> keywordReviews;
 
-    public PostReviewDto(Long memberId, String content, String deliveryContent, int star, String deliverySatisfaction, List<KeywordReviewDTO> keywordReviews) {
+
+    public ReviewVO(Long memberId, String itemContent, String deliveryContent, int star, String deliverySatisfaction, List<Map<String,String>> keywordReviews) {
         this.memberId = memberId;
-        this.itemContent = content;
+        this.itemContent = itemContent;
         this.deliveryContent = deliveryContent;
         this.star = star;
         this.deliverySatisfaction = deliverySatisfaction;

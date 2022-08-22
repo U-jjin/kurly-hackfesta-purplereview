@@ -1,9 +1,9 @@
 package com.kurly.kurlyproject.controller;
 
 
-import com.kurly.kurlyproject.dto.KeywordReviewDTO;
-import com.kurly.kurlyproject.dto.reviewDto.GetReviewDto;
-import com.kurly.kurlyproject.dto.reviewDto.PostReviewDto;
+import com.kurly.kurlyproject.domain.review.DeliverySatisfaction;
+import com.kurly.kurlyproject.domain.review.Review;
+import com.kurly.kurlyproject.dto.reviewDto.ReviewVO;
 import com.kurly.kurlyproject.repository.ItemRepository;
 import com.kurly.kurlyproject.repository.QuestionRepository;
 import com.kurly.kurlyproject.service.ItemService;
@@ -12,6 +12,7 @@ import com.kurly.kurlyproject.service.ReviewService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
+import  java.util.List;
 
 @RestController
 @Slf4j
@@ -25,22 +26,29 @@ public class ReviewController {
     private final QuestionRepository questionRepository;
 
     @PostMapping("/review/{itemId}")
-    public void create(@PathVariable("itemId") Long itemId, @RequestBody PostReviewDto review){
+    public Long create(@PathVariable("itemId") Long itemId, @RequestBody ReviewVO review){
 
-        reviewService.save(review,itemId);
+        return  reviewService.save(review,itemId);
     }
 
-//    @GetMapping("/reviews")
-//    public void insertTest(){
-//
-//        KeywordReviewDTO keywordReviewDTO =new KeywordReviewDTO(Long.valueOf())
-//
-//        PostReviewDto postReviewDto =new PostReviewDto(Long.valueOf(3),"물품이 엄청 좋아요!","배송 잘받았어요.",5,"GOOD")
-//
-//
-//
-//
+
+    @PostMapping("/reviews/{itemId}")
+    public void createList(@PathVariable("itemId") Long itemId, @RequestBody List<ReviewVO> review){
+
+        for(ReviewVO vo : review){
+            reviewService.save(vo,itemId);
+        }
+    }
+
+//    @GetMapping("/tests")
+//    public List<Object[]> tests(){
+//        return reviewService.findMonthlyStarByItem(Long.valueOf(1));
 //    }
+
+
+
+
+
 
 
 

@@ -18,7 +18,10 @@ public class CategoryRepository {
     public void save(Category category){
         em.persist(category);
     }
-
     public Category findOne(Long Id){return em.find(Category.class, Id);
     }
+
+
+
+
 }

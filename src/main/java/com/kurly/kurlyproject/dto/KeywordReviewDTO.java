@@ -14,4 +14,9 @@ class KeywordReviewDTO {
         this.question = question;
         this.answer = answer;
     }
+
+    public KeywordReviewDTO(Long questionId, String answer) {
+        this.questionId = questionId;
+        this.answer = answer;
+    }
 }

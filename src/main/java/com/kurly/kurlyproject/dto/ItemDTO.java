@@ -6,7 +6,7 @@ import lombok.Getter;
 import java.util.*;
 @Getter
 public class ItemDTO {
-    private Long id;
+    private Long itemId;
     private String name;
     private int price;
     private int discountPrice;
@@ -15,7 +15,7 @@ public class ItemDTO {
     private List<QuestionDTO> questionList; //빼기
 
     public ItemDTO(Long id, String name, int price, int discountPrice, String imgURL, List<String> categories, List<QuestionDTO> questionList) {
-        this.id = id;
+        this.itemId = id;
         this.name = name;
         this.price = price;
         this.discountPrice = discountPrice;
@@ -23,4 +23,5 @@ public class ItemDTO {
         this.categories = categories;
         this.questionList = questionList;
     }
+
 }
