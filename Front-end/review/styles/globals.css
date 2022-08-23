@@ -1,0 +1,12 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply sm:min-h-screen;
+    @apply sm:flex;
+    @apply sm:items-center;
+    @apply sm:justify-center;
+  }
+}
