@@ -3,7 +3,6 @@ package com.kurly.kurlyproject.service;
 import com.kurly.kurlyproject.domain.Item;
 import com.kurly.kurlyproject.dto.DtoConvertor;
 import com.kurly.kurlyproject.dto.ItemDTO;
-import com.kurly.kurlyproject.dto.QuestionDTO;
 import com.kurly.kurlyproject.repository.ItemRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

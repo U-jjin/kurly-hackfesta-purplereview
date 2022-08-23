@@ -1,6 +1,5 @@
 package com.kurly.kurlyproject.service;
 
-import com.kurly.kurlyproject.CustomData;
 import com.kurly.kurlyproject.domain.Item;
 import com.kurly.kurlyproject.domain.member.Member;
 import com.kurly.kurlyproject.domain.review.KeywordReview;
@@ -120,6 +119,7 @@ public class ReviewService {
 
     }
 
+
     public  RatioListDTO findDeliveryData(Long itemId){
 
         //배달 만족도 total, 월별 평균 구하기
@@ -160,7 +160,6 @@ public class ReviewService {
         }
 
         return new RatioListDTO(totalDeliAvg,monthList,deliMonthlyAvgList);
-
 
 
     }
