@@ -66,12 +66,13 @@ public class Review {
     }
 
 
-    public static Review createReview (Item item, Member member, String itemContent, String deliveryContent, int star, String satisfaction, List<KeywordReview> keywordReviewList) {
+    public static Review createReview (LocalDateTime time,Item item, Member member, String itemContent, String deliveryContent, int star, String satisfaction, List<KeywordReview> keywordReviewList) {
             Review review =new Review();
 
             review.addMember(member);
             review.addItem(item);
-            review.setDate(LocalDateTime.now());
+//            review.setDate(LocalDateTime.now());
+            review.setDate(time);
             review.setItemContent(itemContent);
             review.setDeliveryContent(deliveryContent);
             review.setStar(star);

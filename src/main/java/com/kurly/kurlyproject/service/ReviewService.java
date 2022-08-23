@@ -1,16 +1,18 @@
 package com.kurly.kurlyproject.service;
 
+import com.kurly.kurlyproject.CustomData;
 import com.kurly.kurlyproject.domain.Item;
 import com.kurly.kurlyproject.domain.member.Member;
 import com.kurly.kurlyproject.domain.review.KeywordReview;
 import com.kurly.kurlyproject.domain.review.Review;
 import com.kurly.kurlyproject.dto.DtoConvertor;
-import com.kurly.kurlyproject.dto.reviewDto.GetGraphDataDTO;
+import com.kurly.kurlyproject.dto.rateDTO.RatioListDTO;
 import com.kurly.kurlyproject.dto.reviewDto.ReviewDto;
-import com.kurly.kurlyproject.dto.reviewDto.ReviewRatioDTO;
+import com.kurly.kurlyproject.dto.rateDTO.ReviewRatioDTO;
 import com.kurly.kurlyproject.dto.reviewDto.ReviewVO;
 import com.kurly.kurlyproject.repository.*;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,6 +20,7 @@ import java.util.*;
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
+@Slf4j
 public class ReviewService {
 
     private final ReviewRepository reviewRepository;
@@ -35,7 +38,8 @@ public class ReviewService {
         for(Map<String,String> r: reviewVo.getKeywordReviews()){
             keyList.add(KeywordReview.createKeywordReview(questionRepository.findOne(Long.valueOf(r.get("questionId"))), r.get("answer")));
         }
-        Review review= Review.createReview(item, member,reviewVo.getItemContent(), reviewVo.getDeliveryContent(),
+
+        Review review= Review.createReview(CustomData.createRandomDate(),item, member,reviewVo.getItemContent(), reviewVo.getDeliveryContent(),
                 reviewVo.getStar(), reviewVo.getDeliverySatisfaction(),keyList);
 
         reviewRepository.save(review);
@@ -55,7 +59,7 @@ public class ReviewService {
     }
 
     public List<ReviewRatioDTO> answerRate (Long itemId){
-        Double sum =0.0;
+        int sum = 0;
         ArrayList<String> askingList =new ArrayList<>();
         ArrayList<ArrayList<String>> answerlists =new ArrayList<>();
         ArrayList<ArrayList<Double>> ratiolists =new ArrayList<>();
@@ -79,65 +83,77 @@ public class ReviewService {
         }
         List<ReviewRatioDTO> dtoList =new ArrayList<>();
 
+
+        System.out.println(sum+"   핼로우");
         for(int i=0; i<askingList.size(); i++){
-            dtoList.add(new ReviewRatioDTO(askingList.get(i),answerlists.get(i),ratiolists.get(i),sum));
+            dtoList.add(new ReviewRatioDTO(askingList.get(i),answerlists.get(i),ratiolists.get(i),sum/2));
         }
 
         return dtoList;
     }
 
-    public void findGraphData(Long itemId){
-
+    public RatioListDTO findStarData(Long itemId){
 
         //별점 만족도 total, 월별 평균 구하기
         //total
-        Double itemAvg = reviewRepository.findStarTotalAvgByItem(itemId);
+        String itemAvg = String.format("%.1f",reviewRepository.findStarTotalAvgByItem(itemId));
 
         //monthly
-        double [] itemMonthlyAvgList =new double[12];
+        ArrayList<String> itemMonthlyAvgList =new ArrayList<>();
+        ArrayList<String> monthList =new ArrayList<>();
 
         for(Object[] object : reviewRepository.findStarMonthlyAvgByItem(itemId)){
-            int idx = Integer.parseInt(object[0].toString())-1;
-            itemMonthlyAvgList[idx] = Double.parseDouble(object[1].toString());
+            monthList.add(object[0].toString());
+            itemMonthlyAvgList.add(String.format("%.2f",Double.parseDouble(object[1].toString())));
         }
+
+        return new RatioListDTO(itemAvg,monthList,itemMonthlyAvgList);
+
+
+    }
+
+    public  RatioListDTO findDeliveryData(Long itemId){
 
         //배달 만족도 total, 월별 평균 구하기
         Map<String, List<Object[]>> delimap = reviewRepository.findDeliByItem(itemId);
 
         List<Object[]> goodlist =delimap.get("good");
         List<Object[]> badlist =delimap.get("bad");
-        int [] monthlyGoods = new int[12];
-        int [] monthlyBads = new int[12];
+
+        ArrayList<String> monthList =new ArrayList<>();
+        ArrayList<Double> ratioGoodList =new ArrayList<>();
+        ArrayList<Double> ratioBadList = new ArrayList<>();
+
+        double delisum =0;
+        double goodsum = 0;
+
         for(Object[] object: goodlist){
-            int idx = Integer.parseInt(object[0].toString())-1;
-            monthlyGoods[idx] = Integer.parseInt(object[1].toString());
-        }
-        for(Object[] object: badlist){
-            int idx = Integer.parseInt(object[0].toString())-1;
-            monthlyBads[idx] = Integer.parseInt(object[1].toString());
+            monthList.add(object[0].toString());
+            double monthlycnt =Double.parseDouble(object[1].toString());
+            delisum += monthlycnt;
+            goodsum += monthlycnt;
+            ratioGoodList.add(monthlycnt);
         }
 
-        int delisum =0;
-        int goodsum = 0;
+        for(Object[] object: badlist){
+            double monthlycnt =Double.parseDouble(object[1].toString());
+            delisum += monthlycnt;
+            ratioBadList.add(monthlycnt);
+        }
+
+        //배달 total 평균 만족도
+        String totalDeliAvg = String.format("%.1f",goodsum/delisum*100);
 
         //배달 월별 만족도
-        double[] deliveryMonthlyAvgList =new double[12];
+        ArrayList<String> deliMonthlyAvgList =new ArrayList<>();
 
-        for(int i=0; i<12; i++){
-            int sum =  monthlyGoods[i]+monthlyBads[i];
-            delisum += sum;
-            goodsum +=monthlyGoods[i];
-            deliveryMonthlyAvgList[i] = (double)monthlyGoods[i]/sum*100;
+        for(int i=0; i<ratioGoodList.size(); i++){
+            deliMonthlyAvgList.add(String.format("%.2f", ratioGoodList.get(i)/(ratioGoodList.get(i)+ratioBadList.get(i))*100));
         }
-        //배달 total 만족도
-        double deliveryAvg = (double)goodsum/(double)delisum*100;
+
+        return new RatioListDTO(totalDeliAvg,monthList,deliMonthlyAvgList);
 
 
-        //키워드 데이터 구하기 이거능
-        List<ReviewRatioDTO> reviewRatioDTOS = answerRate(itemId);
-
-
-        GetGraphDataDTO graphDto = new GetGraphDataDTO(itemAvg, deliveryAvg,itemMonthlyAvgList,deliveryMonthlyAvgList,reviewRatioDTOS);
 
     }
 

@@ -2,8 +2,7 @@ package com.kurly.kurlyproject.controller;
 
 
 import com.kurly.kurlyproject.dto.ItemDTO;
-import com.kurly.kurlyproject.dto.reviewDto.ReviewDto;
-import com.kurly.kurlyproject.dto.reviewDto.ReviewRatioDTO;
+import com.kurly.kurlyproject.dto.rateDTO.ReviewRatioDTO;
 import com.kurly.kurlyproject.service.ItemService;
 import com.kurly.kurlyproject.service.ReviewService;
 import lombok.RequiredArgsConstructor;

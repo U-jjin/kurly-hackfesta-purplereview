@@ -39,6 +39,4 @@ public class KeywordReviewRepository {
 
     }
 
-
-    //      "new com.kurly.kurlyproject.dto.RatioListDTO(kr.question.asking, kr.answer, count(kr.answer))"
 }

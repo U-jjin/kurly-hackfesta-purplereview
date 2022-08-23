@@ -1,8 +1,7 @@
 package com.kurly.kurlyproject.controller;
 
 
-import com.kurly.kurlyproject.domain.review.DeliverySatisfaction;
-import com.kurly.kurlyproject.domain.review.Review;
+import com.kurly.kurlyproject.dto.rateDTO.RatioListDTO;
 import com.kurly.kurlyproject.dto.reviewDto.ReviewVO;
 import com.kurly.kurlyproject.repository.ItemRepository;
 import com.kurly.kurlyproject.repository.QuestionRepository;
@@ -18,12 +17,7 @@ import  java.util.List;
 @Slf4j
 @RequiredArgsConstructor
 public class ReviewController {
-
-    private final ItemService itemService;
-    private final ItemRepository itemRepository;
     private final ReviewService reviewService;
-    private final QuestionService questionService;
-    private final QuestionRepository questionRepository;
 
     @PostMapping("/review/{itemId}")
     public Long create(@PathVariable("itemId") Long itemId, @RequestBody ReviewVO review){
@@ -40,10 +34,9 @@ public class ReviewController {
         }
     }
 
-//    @GetMapping("/tests")
-//    public List<Object[]> tests(){
-//        return reviewService.findMonthlyStarByItem(Long.valueOf(1));
-//    }
+
+
+
 
 
 

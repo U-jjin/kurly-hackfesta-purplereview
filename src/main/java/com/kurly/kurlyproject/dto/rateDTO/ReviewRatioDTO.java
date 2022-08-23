@@ -1,6 +1,5 @@
-package com.kurly.kurlyproject.dto.reviewDto;
+package com.kurly.kurlyproject.dto.rateDTO;
 
-import com.kurly.kurlyproject.vo.FormatVO;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -21,6 +20,8 @@ public class ReviewRatioDTO {
         this.answerlist = answerlist;
 
         this.ratiolist = new ArrayList<>();
-        for(Double d: list){this.ratiolist.add(FormatVO.form.format((d/sum)*100.0));}
+        for(Double d: list){
+            this.ratiolist.add( String.format("%.2f", (float)(d/sum*100)));
+        }
     }
 }
