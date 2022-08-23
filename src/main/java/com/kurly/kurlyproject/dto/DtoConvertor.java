@@ -52,26 +52,12 @@ public class DtoConvertor {
         return new ItemDTO(item.getId(), item.getName(), item.getPrice(), item.getDiscountPrice(), item.getImageUrl(), categoryNameList, quesDtoList);
     }
 
-    public static List<QuestionDTO> convertToQuestionDtoList(Item item){
-        List<QuestionDTO> quesDtoList =new ArrayList<>();
-
-        for(CategoryItem ci : item.getCategoryItemList()){
-            for(Question q : ci.getCategory().getQuestionList()){
-                quesDtoList.add(convertToDto(q));
-            }
-
-        }
-        return quesDtoList;
-    }
-
     /*
      QuestionDTO 변환
      */
     public static QuestionDTO convertToDto(Question question){
         return new QuestionDTO(question.getId(), question.getAsking(), question.getAnswers().split("&"));
     }
-
-
 
     /*
         KeyWordReviewDTO 변환

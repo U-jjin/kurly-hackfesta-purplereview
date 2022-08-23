@@ -1,7 +1,6 @@
 package com.kurly.kurlyproject.repository;
 
 
-import com.kurly.kurlyproject.domain.review.DeliverySatisfaction;
 import com.kurly.kurlyproject.domain.review.Review;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -25,10 +24,12 @@ public class ReviewRepository {
      return em.createQuery(" select r from Review r where r.item.id=:itemId order by r.date desc ",Review.class).setParameter("itemId",itemId).getResultList();
     }
 
+    //평균 별점 조회
     public Double findStarTotalAvgByItem(Long itemId){
-       return em.createQuery("select avg(r.star) from Review r where r.item.id=:itemId",Double.class).setParameter("itemId",itemId).getSingleResult().doubleValue();
+       return em.createQuery("select avg(r.star) from Review r where r.item.id=:itemId", Double.class).setParameter("itemId", itemId).getSingleResult();
     }
 
+    //별점의 월별 비율을 구하기 위해 데이터 조회
     public List<Object[]> findStarMonthlyAvgByItem(Long itemId){
        return em.createQuery("select substring(r.date,1,7) as d, avg(r.star)" +
                         "from Review r " +
@@ -38,15 +39,16 @@ public class ReviewRepository {
 
     }
 
+    //배달 만족도에 대한 비율을 구하기 위해 데이터 조회
     public Map<String, List<Object[]>> findDeliByItem(Long itemId){
-        List<Object[]> goodlist = em.createQuery("select substring(r.date,1,7) as d, count(r.deliverySatisfaction)" +
+        List goodlist = em.createQuery("select substring(r.date,1,7) as d, count(r.deliverySatisfaction)" +
                                                     " from Review r where r.deliverySatisfaction=:sati " +
-                                                    "group by d")
+                                                    "group by d",Object[].class)
                                                     .setParameter("sati", Good).getResultList();
 
-        List<Object[]> badlist = em.createQuery("select substring(r.date,1,7) as d, count(r.deliverySatisfaction)" +
+        List badlist = em.createQuery("select substring(r.date,1,7) as d, count(r.deliverySatisfaction)" +
                                                         " from Review r where r.deliverySatisfaction=:sati " +
-                                                        "group by d")
+                                                        "group by d",Object[].class)
                                                         .setParameter("sati", Bad).getResultList();
         Map<String, List<Object[]>> map =new HashMap<>();
         map.put("good",goodlist);

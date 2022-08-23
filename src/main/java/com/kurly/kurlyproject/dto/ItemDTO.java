@@ -12,7 +12,7 @@ public class ItemDTO {
     private int discountPrice;
     private String imgURL;
     private List<String> categories;
-    private List<QuestionDTO> questionList; //빼기
+    private List<QuestionDTO> questionList;
 
     public ItemDTO(Long id, String name, int price, int discountPrice, String imgURL, List<String> categories, List<QuestionDTO> questionList) {
         this.itemId = id;

@@ -16,7 +16,6 @@ import java.util.*;
 public class QuestionService {
 
     private final QuestionRepository questionRepository;
-    private final CategoryRepository categoryRepository;
 
     @Transactional
     public void saveItem (Question question){

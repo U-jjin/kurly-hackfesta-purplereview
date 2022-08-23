@@ -7,6 +7,10 @@ import java.time.LocalDateTime;
 import java.util.*;
 @Getter
 
+/*
+ Post 리뷰 생성을 위하여 담을 리뷰 데이터 객체
+ */
+
 public class ReviewDto {
     private Long reviewId;
     private LocalDateTime date;

@@ -1,15 +1,12 @@
 package com.kurly.kurlyproject;
 
-
-
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.Random;
-import java.util.List;
+
 
 public class CustomData {
 
+    //랜던 가상 리뷰 날짜 생성을 위한 메소드
     public static LocalDateTime createRandomDate(){
         int [] maxDays = {31,28,31,30,31,30,31,31,30,31,30,31};
         Random random =new Random();
@@ -21,19 +18,4 @@ public class CustomData {
 
         return LocalDateTime.of(year,month,day,00,00,00);
     }
-
-//    public static List<String[]> reorderMonth(String[] arr){
-//        int nowMonth = LocalDateTime.now().getMonth().getValue();
-//
-//        String [] ratearr =new String[12];
-//        String [] montharr =new String[12];
-//
-//        List<String> rateList =new ArrayList<>();
-//        List<String> monthlList = new ArrayList<>();
-//
-//
-//
-//
-//
-//    }
 }

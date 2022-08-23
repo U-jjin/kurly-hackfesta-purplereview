@@ -1,7 +1,6 @@
 package com.kurly.kurlyproject.dto;
 
 import lombok.Getter;
-import java.util.ArrayList;
 @Getter
 public class QuestionDTO{
     private Long questionId;

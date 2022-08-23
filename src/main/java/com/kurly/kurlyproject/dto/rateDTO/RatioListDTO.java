@@ -1,11 +1,13 @@
 package com.kurly.kurlyproject.dto.rateDTO;
-
-import antlr.collections.List;
 import lombok.Getter;
-
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.TreeSet;
+
+
+
+/*
+별점, 배달 만족도 월별 평균 데이터를 담기 위한 객체
+
+ */
 
 @Getter
 public class RatioListDTO {

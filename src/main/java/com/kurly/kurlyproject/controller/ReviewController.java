@@ -13,6 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 import  java.util.List;
 
+@CrossOrigin("*")
 @RestController
 @Slf4j
 @RequiredArgsConstructor
@@ -20,9 +21,8 @@ public class ReviewController {
     private final ReviewService reviewService;
 
     @PostMapping("/review/{itemId}")
-    public Long create(@PathVariable("itemId") Long itemId, @RequestBody ReviewVO review){
-
-        return  reviewService.save(review,itemId);
+    public void create(@PathVariable("itemId") Long itemId, @RequestBody ReviewVO review){
+        reviewService.save(review,itemId);
     }
 
 

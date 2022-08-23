@@ -28,26 +28,4 @@ public class ItemRepository {
 
 
 
-
-
-
-//    public List<ReviewDTO> findReviewList (Long itemId){
-//        List<ReviewDTO> reviewList =new ArrayList<>();
-//        for(Review r: em.find(Item.class, itemId).getReviewList()){
-//            reviewList.add(DtoConvertor.convertToDto(r));
-//        }
-//        return reviewList;
-//    }
-
-    public void findRate(Long itemId){
-        List<KeywordReview> keyReviewList =new ArrayList<>();
-        for(Review r: em.find(Item.class, itemId).getReviewList()){
-            keyReviewList.addAll(r.getKeywordReviewList());
-        }
-
-
-    }
-
-
-
 }

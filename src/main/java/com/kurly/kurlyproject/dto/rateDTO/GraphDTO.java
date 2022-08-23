@@ -3,6 +3,10 @@ package com.kurly.kurlyproject.dto.rateDTO;
 import lombok.Getter;
 
 import java.util.*;
+
+/*
+Get /graphdata/{itemId} 을 위한 객체 형
+ */
 @Getter
 public class GraphDTO {
     private String itemScoreAvg;

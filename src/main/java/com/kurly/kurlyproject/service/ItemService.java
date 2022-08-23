@@ -31,7 +31,5 @@ public class ItemService {
         return DtoConvertor.convertToDto(itemRepository.findOne(itemId));
     }
 
-    //내일 오전에 구현
-//    public List<QuestionDTO> findQuestion(Long itemId){return itemRepository.findQuestion(itemId);};
 
 }

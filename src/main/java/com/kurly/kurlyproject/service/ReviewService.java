@@ -29,17 +29,23 @@ public class ReviewService {
     private final MemberRepository memberRepository;
     private  final QuestionRepository questionRepository;
 
+
+    //리뷰 생성 메소드
     @Transactional
     public Long save(ReviewVO reviewVo, Long itemId){
         Item item = itemRepository.findOne(itemId);
         Member member =memberRepository.findOne(reviewVo.getMemberId());
+
+        //키워드 리뷰 엔티티
         List<KeywordReview> keyList =new ArrayList<>();
 
         for(Map<String,String> r: reviewVo.getKeywordReviews()){
+            if(r.get("answer") ==null ) continue;  //키워드 리뷰를 입력하지 않았으면 제외.
             keyList.add(KeywordReview.createKeywordReview(questionRepository.findOne(Long.valueOf(r.get("questionId"))), r.get("answer")));
         }
 
-        Review review= Review.createReview(CustomData.createRandomDate(),item, member,reviewVo.getItemContent(), reviewVo.getDeliveryContent(),
+        //리뷰 엔티티 생성
+        Review review= Review.createReview(item, member,reviewVo.getItemContent(), reviewVo.getDeliveryContent(),
                 reviewVo.getStar(), reviewVo.getDeliverySatisfaction(),keyList);
 
         reviewRepository.save(review);
@@ -47,6 +53,7 @@ public class ReviewService {
         return review.getId();
     }
 
+    //리뷰 리스트 조회
     public List<ReviewDto> findReviewsByItem(Long itemId){
 
         List<ReviewDto> reviewDtoList =new ArrayList<>();
@@ -58,12 +65,14 @@ public class ReviewService {
         return reviewDtoList;
     }
 
+    // 키워드 질문에 대한 비율 조회
     public List<ReviewRatioDTO> answerRate (Long itemId){
         int sum = 0;
         ArrayList<String> askingList =new ArrayList<>();
         ArrayList<ArrayList<String>> answerlists =new ArrayList<>();
         ArrayList<ArrayList<Double>> ratiolists =new ArrayList<>();
 
+        //레포지토리에서 입력받아 온 값을 데이터 형식에 맞게 변환
         for(Object[] object: keywordReviewRepository.findKeywordReview(itemId)){
 
             String asking= object[0].toString()+"&"+object[1].toString();
@@ -81,10 +90,9 @@ public class ReviewService {
             answerlists.get(idx).add(answer);
             ratiolists.get(idx).add(count);
         }
+
         List<ReviewRatioDTO> dtoList =new ArrayList<>();
 
-
-        System.out.println(sum+"   핼로우");
         for(int i=0; i<askingList.size(); i++){
             dtoList.add(new ReviewRatioDTO(askingList.get(i),answerlists.get(i),ratiolists.get(i),sum/2));
         }

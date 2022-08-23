@@ -20,12 +20,6 @@ public class CategoryService {
     private final ItemRepository itemRepository;
 
 
-//    public void addCategoryItem(Long itemId, Long categoryId){
-//        CategoryItem categoryItem = new CategoryItem(itemRepository.findOne(itemId), categoryRepository.findOne(categoryId));
-//
-//        categoryItemRepository.save(categoryItem);
-//    }
-
     public Category findOne(Long categoryId){
         return  categoryRepository.findOne(categoryId);
     }
