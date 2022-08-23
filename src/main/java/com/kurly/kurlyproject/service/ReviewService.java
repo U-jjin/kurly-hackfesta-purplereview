@@ -65,7 +65,7 @@ public class ReviewService {
     }
 
     // 키워드 질문에 대한 비율 조회
-    public List<ReviewRatioDTO> answerRate (Long itemId){
+    public List<ReviewRatioDTO> findkeywordRateList (Long itemId){
         int sum = 0;
         ArrayList<String> askingList =new ArrayList<>();
         ArrayList<ArrayList<String>> answerlists =new ArrayList<>();
@@ -74,9 +74,9 @@ public class ReviewService {
         //레포지토리에서 입력받아 온 값을 데이터 형식에 맞게 변환
         for(Object[] object: keywordReviewRepository.findKeywordReview(itemId)){
 
-            String asking= object[0].toString()+"&"+object[1].toString();
-            String answer = object[2].toString();
-            Double count =Double.parseDouble(object[3].toString());
+            String asking= object[0].toString()+"&"+object[1].toString()+"&"+object[2].toString();
+            String answer = object[3].toString();
+            double count =Double.parseDouble(object[4].toString());
             sum +=count;
 
             if(!askingList.contains(asking)){
@@ -96,6 +96,7 @@ public class ReviewService {
             dtoList.add(new ReviewRatioDTO(askingList.get(i),answerlists.get(i),ratiolists.get(i),sum/2));
         }
 
+        Collections.sort(dtoList);
         return dtoList;
     }
 

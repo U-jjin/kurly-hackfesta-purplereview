@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeSet;
 
 @CrossOrigin("*")
 
@@ -41,7 +42,7 @@ public class ItemController {
 //        Map<String, Object> map = new HashMap<>();
 //        map.put("reviewList",reviewService.findReviewsByItem(itemId));
 
-        return reviewService.answerRate(itemId);
+        return reviewService.findkeywordRateList(itemId);
     }
 
 

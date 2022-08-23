@@ -20,21 +20,10 @@ public class KeywordReviewRepository {
     }
 
 
-    //질문별 총합 갯수 구하기
-    public void findSumOfQustion(Long itemId){
-
-        em.createQuery("select kr.question.asking, sum(count(kr))" +
-                            " from KeywordReview kr " +
-                            "where kr.review.item.id=:itemId " +
-                            "group by kr.question", Map.class)
-                            .setParameter("itemId",itemId).getResultList();
-    }
-
-
     public List<Object[]> findKeywordReview(Long itemId){
 
         return em.createQuery("select " +
-                "kr.question.category.name, kr.question.asking, kr.answer, count(kr.answer)" +
+                "kr.question.category.name,kr.question.category.depth, kr.question.asking, kr.answer, count(kr.answer)" +
                 " from KeywordReview kr " +
                 "where kr.review.item.id=:itemId " +
                 "group by kr.answer", Object[].class)

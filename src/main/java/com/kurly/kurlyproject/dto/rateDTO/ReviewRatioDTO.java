@@ -8,22 +8,30 @@ import java.util.*;
  */
 
 @Getter
-public class ReviewRatioDTO {
+public class ReviewRatioDTO implements Comparable<ReviewRatioDTO>{
     private String asking;
     private String category;
+    private int depth;
     private List<String> answerlist;
     private List<String> ratiolist;
 
     public ReviewRatioDTO (String question, List<String> answerList, List<Double> list, double sum) {
+        String [] str =question.split("&");
 
-        String[] str = question.split("&");
         this.category =str[0];
-        this.asking =str[1];
+        this.depth = Integer.parseInt(str[1]);
+        this.asking = str[2];
         this.answerlist = answerList;
 
         this.ratiolist = new ArrayList<>();
         for(Double d: list){
             this.ratiolist.add( String.format("%.2f", (float)(d/sum*100)));
         }
+    }
+
+    @Override
+    public int compareTo(ReviewRatioDTO o) {
+
+        return this.depth-o.depth;
     }
 }

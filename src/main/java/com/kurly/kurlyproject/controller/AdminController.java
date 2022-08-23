@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
+import java.util.TreeSet;
 
 @CrossOrigin("*")
 @Controller
@@ -30,7 +31,7 @@ public class AdminController {
         RatioListDTO starData = reviewService.findStarData(itemId);
         RatioListDTO deliveryData = reviewService.findDeliveryData(itemId);
 
-        List<ReviewRatioDTO> reviewRatioDTOS =reviewService.answerRate(itemId);
+        List<ReviewRatioDTO> reviewRatioDTOS =reviewService.findkeywordRateList(itemId);
 
         return new GraphDTO(starData.getTotalAvg(),deliveryData.getTotalAvg(),starData.getMonthSet(),starData.getMonthAvgList(),deliveryData.getMonthAvgList(),reviewRatioDTOS);
     }
