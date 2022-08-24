@@ -7,8 +7,8 @@
 컬리의, 컬리만을 위한 컬리 리뷰 서비스 퍼플 리뷰입니다.<br>
 기존의 마켓컬리 상품 추천 개선에 관한 아이디어로써 상품 구매 후 키워드 기반 리뷰 작성 시스템을 도입했습니다.
 <br>
-- 사용자 리뷰 작성 URL : [kurlyreview.com](kurlyreview.com)
-- 관리자 데이터 조회 URL : [kurlyreviewadmin.com](kurlyreviewadmin.com)
+- 사용자 리뷰 작성 URL : [kurlyreview.com](http://kurlyreview.com)
+- 관리자 데이터 조회 URL : [kurlyreviewadmin.com](http:/kurlyreviewadmin.com)
 
 ### 프로젝트 상세
 
