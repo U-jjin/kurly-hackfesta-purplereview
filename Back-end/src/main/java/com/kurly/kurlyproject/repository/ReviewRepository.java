@@ -3,9 +3,11 @@ package com.kurly.kurlyproject.repository;
 
 import com.kurly.kurlyproject.domain.review.Review;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.SQLQuery;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
 import java.util.*;
 
 import static com.kurly.kurlyproject.domain.review.DeliverySatisfaction.Bad;
@@ -41,21 +43,31 @@ public class ReviewRepository {
 
     //배달 만족도에 대한 비율을 구하기 위해 데이터 조회
     public Map<String, List<Object[]>> findDeliByItem(Long itemId){
-        List goodlist = em.createQuery("select substring(r.date,1,7) as d, count(r.deliverySatisfaction)" +
-                                                    " from Review r where r.deliverySatisfaction=:sati " +
-                                                    "group by d",Object[].class)
-                                                    .setParameter("sati", Good).getResultList();
 
-        List badlist = em.createQuery("select substring(r.date,1,7) as d, count(r.deliverySatisfaction)" +
-                                                        " from Review r where r.deliverySatisfaction=:sati " +
-                                                        "group by d",Object[].class)
-                                                        .setParameter("sati", Bad).getResultList();
+        TypedQuery<Object[]> goodQuery = em.createQuery("select substring(r.date,1,7) as d, count(r.deliverySatisfaction)" +
+                                                            " from Review r where r.deliverySatisfaction=:sati and r.item.id=:itemId " +
+                                                             "group by d", Object[].class);
+        goodQuery.setParameter("sati",Good);
+        goodQuery.setParameter("itemId",itemId);
+
+        List goodlist = goodQuery.getResultList();
+
+
+        TypedQuery<Object[]> badQuery = em.createQuery("select substring(r.date,1,7) as d, count(r.deliverySatisfaction)" +
+                                                                " from Review r where r.deliverySatisfaction=:sati and r.item.id=:itemId " +
+                                                                "group by d", Object[].class);
+        badQuery.setParameter("sati",Bad);
+        badQuery.setParameter("itemId",itemId);
+
+        List badlist = badQuery.getResultList();
+
+
         Map<String, List<Object[]>> map =new HashMap<>();
         map.put("good",goodlist);
         map.put("bad",badlist);
 
+
         return  map;
     }
-
 
 }

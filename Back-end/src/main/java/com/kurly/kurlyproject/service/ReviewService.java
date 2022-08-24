@@ -159,7 +159,6 @@ public class ReviewService {
         for(int i=0; i<ratioGoodList.size(); i++){
             deliMonthlyAvgList.add(String.format("%.2f", ratioGoodList.get(i)/(ratioGoodList.get(i)+ratioBadList.get(i))*100));
         }
-
         return new RatioListDTO(totalDeliAvg,monthList,deliMonthlyAvgList);
 
 
