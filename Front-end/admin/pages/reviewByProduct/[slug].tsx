@@ -27,7 +27,7 @@ const ReviewByProduct = ({
     <Layout data={allProductsById}>
       <div className='w-[50%] min-h-full border-r border-r-gray'>
         <div className='h-[20%] px-5 flex items-center justify-around'>
-          <Rating title='제품만족도' rating={itemScoreAvg} />
+          <Rating title='제품만족도' rating={`${itemScoreAvg} /5.0`} />
           <Rating title='배송만족도' rating={`${deliveryScoreAvg}%`} />
         </div>
         {/* 왼쪽하단 */}
