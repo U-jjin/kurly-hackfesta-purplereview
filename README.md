@@ -49,7 +49,7 @@
 ## 🐱‍🏍 팀원 소개
 
 |🧏🏻‍♀️[송재현]( https://github.com/songgplant)| [손정호]( https://github.com/songgplant)|[안유진](www.github.com/U-jjin)|
-|------|---|---|
+|:------:|:---:|:---:|
 |![재현](https://avatars.githubusercontent.com/u/85278188?v=4)|![정호](https://avatars.githubusercontent.com/u/87624756?v=4)|![유진](https://avatars.githubusercontent.com/u/70012637?s=400&u=abb3a1cb495ddb302117e96236f734c0ca5e17e9&v=4)|
-| 🐱‍👤기획,데이터분석                        | 🐱‍💻프론트엔드                           | 🐱‍🐉백엔드                       |
+|🐱‍👤기획,데이터분석|🐱‍💻프론트엔드                           |🐱‍🐉백엔드                       |
 
