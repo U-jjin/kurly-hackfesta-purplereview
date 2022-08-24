@@ -34,7 +34,6 @@
 - AWS EC2 가상 서버를 통해 서버를 배포하였습니다.
 - Database AWS RDS의 mariadb를 사용했습니다.
 - 리액트 설명 써달라구 하기
-- 차후, git actions, jenkins를 통해 무중단 배포 ci/cd 를 구성할 예정입니다.
 
 <br>
 
