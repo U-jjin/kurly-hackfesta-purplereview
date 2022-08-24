@@ -19,7 +19,7 @@ const ProductDetail = ({
   productData,
   reviewData,
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
-  const { imgURL, name, price, discountPrice } = productData;
+  const { imgURL, name, price, discountPrice, itemId } = productData;
 
   return (
     <Layout>

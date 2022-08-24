@@ -4,17 +4,22 @@ import React from "react";
 
 import { ChevronLeftIcon } from "@heroicons/react/outline";
 import Logo from "./logo";
+import Head from "next/head";
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   const router = useRouter();
   const { pathname, back } = router;
-
+  const ADMIN_PAGE_URL = "http://kurlyreviewadmin.com/";
   return (
     <div
       className={`h-screen flex flex-col w-full overflow-y-scroll sm:w-[390px] sm:h-[720px] sm:border-gray sm:border sm:rounded-md ' ${
         pathname == "/" && "bg-main"
       }`}
     >
+      <Head>
+        <title>Kurly Purple Review</title>
+      </Head>
+
       {pathname !== "/" && (
         <>
           <header className='w-full flex items-center justify-between border-b px-3 py-2 bg-main'>
@@ -24,7 +29,13 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
               </a>
             </Link>
             <nav className='space-x-5'>
-              <a className='text-md font-bold text-white'>관리자</a>
+              <a
+                target='_black'
+                href={ADMIN_PAGE_URL}
+                className='text-md font-bold text-white'
+              >
+                관리자
+              </a>
               <Link href='/ordered' passHref>
                 <a className='text-md font-bold text-white'>주문완료</a>
               </Link>

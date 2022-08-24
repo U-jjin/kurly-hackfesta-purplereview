@@ -31,7 +31,9 @@ const ReviewByProduct = ({
           <Rating title='배송만족도' rating={`${deliveryScoreAvg}%`} />
         </div>
         {/* 왼쪽하단 */}
-        <div className='h-[60%]'>
+        <div className='border-t border-t-gray mt-14 w-[95%] mx-auto'></div>
+        <div className='h-[60%] pt-8'>
+          <span className='px-8 text-2xl font-semibold'>월별 만족도 현황</span>
           <LineChart data={graphData} />
         </div>
       </div>

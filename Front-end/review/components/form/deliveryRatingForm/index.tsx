@@ -18,7 +18,7 @@ const DeliveryRatingForm = () => {
       setDeliveryReview((prev) => {
         return {
           ...prev,
-          deliverySatisfaction: selectedRating ? "Good" : "bad",
+          deliverySatisfaction: selectedRating ? "Good" : "Bad",
           deliveryContent: "",
         };
       });
@@ -26,7 +26,7 @@ const DeliveryRatingForm = () => {
       setDeliveryReview((prev) => {
         return {
           ...prev,
-          deliverySatisfaction: selectedRating ? "Good" : "bad",
+          deliverySatisfaction: selectedRating ? "Good" : "Bad",
         };
       });
     }

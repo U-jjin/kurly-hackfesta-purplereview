@@ -1,6 +1,7 @@
 import Select from "../UI/select";
 import BigLogo from "./BigLogo";
 import { FetchedProductData } from "../../types/types";
+import Head from "next/head";
 
 type LayoutProps = {
   children: React.ReactNode;
@@ -10,6 +11,9 @@ type LayoutProps = {
 const Layout: React.FC<LayoutProps> = ({ children, data }) => {
   return (
     <div className='min-h-screen w-[1140px] px-5 space-y-5 '>
+      <Head>
+        <title>kurly-review Admin</title>
+      </Head>
       <header className='w-full h-28 flex items-center justify-between bg-main px-6 py-2'>
         <div className='flex items-center'>
           <BigLogo color='white' />

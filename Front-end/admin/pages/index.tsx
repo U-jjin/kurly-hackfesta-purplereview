@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Head from "next/head";
 
 import type { NextPage } from "next";
 import type { GetStaticProps, InferGetStaticPropsType } from "next";
@@ -14,22 +15,36 @@ const Home: NextPage = ({
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
   return (
     <div className='min-h-screen w-[1140px] bg-main py-3 px-5 flex flex-col items-center justify-center'>
-      <div className='min-h-[80vh] flex flex-col'>
-        <div className='h-full mx-auto'>
+      <div className='min-h-[60vh] flex flex-col items-center'>
+        <div className='h-full flex flex-col items-center'>
           <BigLogo color='white' width='280px' height='240px' />
-          <h1 className='text-4xl text-white text-center'>리뷰 관리하기</h1>
+          <div className='flex flex-col items-center'>
+            <h1 className='text-4xl text-white text-center font-bold'>
+              PurPle Review 퍼플리뷰
+            </h1>
+            <span className='text-2xl text-white mt-1'>리뷰 관리하기</span>
+          </div>
         </div>
 
-        <div className='mt-20'>
+        <div className='mt-24'>
           <ul className='flex flex-col items-center space-y-1'>
             {allProductsById.map(({ itemId, name }: AllProductById) => (
-              <Link href={`/reviewByProduct/${itemId}`} passHref>
+              <Link href={`/reviewByProduct/${itemId}`} passHref key={itemId}>
                 <a>
                   <li className='text-lg hover:underline text-white'>{name}</li>
                 </a>
               </Link>
             ))}
           </ul>
+        </div>
+
+        <div className='mt-5 text-gray text-sm text-center'>
+          <span>컬리가 컬컬컬</span>
+          <div className='flex items-center justify-between w-36'>
+            <span>안유진</span>
+            <span>송재현</span>
+            <span>손정호</span>
+          </div>
         </div>
       </div>
     </div>

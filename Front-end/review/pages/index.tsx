@@ -23,11 +23,14 @@ const Home: NextPage = () => {
               리뷰 시작하기
             </a>
           </Link>
-          <Link href={"/ordered"}>
-            <a className='w-[70%] bg-[#d1d5db] text-main py-5 font-bold text-2xl inline-block rounded-lg hover:bg-white'>
-              관리자 페이지 둘러보기
-            </a>
-          </Link>
+
+          <a
+            target='_black'
+            href='http://kurlyreviewadmin.com/'
+            className='w-[70%] bg-[#d1d5db] text-main py-5 font-bold text-2xl inline-block rounded-lg hover:bg-white'
+          >
+            관리자 페이지 둘러보기
+          </a>
         </div>
 
         <div className='w-full text-center mt-5'>
@@ -35,9 +38,9 @@ const Home: NextPage = () => {
             컬리가 컬컬컬
           </span>
           <div className='w-full space-x-3 text-lightGray text-sm text-gray-600'>
-            <span>유진</span>
-            <span>재현</span>
-            <span>정호</span>
+            <span>안유진</span>
+            <span>송재현</span>
+            <span>손정호</span>
           </div>
         </div>
       </div>
