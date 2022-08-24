@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
+import java.util.Map;
 import java.util.TreeSet;
 
 @CrossOrigin("*")
@@ -26,6 +27,7 @@ public class AdminController {
 
     @GetMapping("/graphdata/{itemId}")
     @ResponseBody
+    //GraphDTO
     public GraphDTO graph(@PathVariable("itemId")Long itemId){
 
         RatioListDTO starData = reviewService.findStarData(itemId);
@@ -35,5 +37,9 @@ public class AdminController {
 
         return new GraphDTO(starData.getTotalAvg(),deliveryData.getTotalAvg(),starData.getMonthSet(),starData.getMonthAvgList(),deliveryData.getMonthAvgList(),reviewRatioDTOS);
     }
+
+
+
+
 }
 
