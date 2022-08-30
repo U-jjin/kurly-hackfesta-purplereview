@@ -25,7 +25,7 @@ const Review = ({
   const { imgURL, name, price, discountPrice, itemId, questionList } =
     reviewData;
 
-  const reviewSubmitHandler = async () => {
+  const reviewSubmitHandler = () => {
     // try {
     //   const response = await fetch(
     //     `http://ec2-13-124-42-109.ap-northeast-2.compute.amazonaws.com:80/review/${itemId}`,
@@ -87,7 +87,7 @@ const Review = ({
         </button>
         <button
           className='bg-main w-[60%] h-16 text-white rounded-lg'
-          onClick={() => router.push("/ordered")}
+          onClick={() => router.push(`/productDetail/${itemId}`)}
         >
           {detailReviewIsSelected ? "그대로 제출하기" : "제출하기"}
         </button>
