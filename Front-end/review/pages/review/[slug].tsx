@@ -26,18 +26,21 @@ const Review = ({
     reviewData;
 
   const reviewSubmitHandler = async () => {
-    const response = await fetch(
-      `http://ec2-13-124-42-109.ap-northeast-2.compute.amazonaws.com:80/review/${itemId}`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(allReviewState),
-      },
-    );
-
-    router.push("/ordered");
+    // try {
+    //   const response = await fetch(
+    //     `http://ec2-13-124-42-109.ap-northeast-2.compute.amazonaws.com:80/review/${itemId}`,
+    //     {
+    //       method: "POST",
+    //       headers: {
+    //         "Content-Type": "application/json",
+    //       },
+    //       body: JSON.stringify(allReviewState),
+    //     },
+    //   );
+    //   router.push("/ordered");
+    // } catch {
+    // router.push("/ordered");
+    // }
   };
 
   const buttonOnClickHandler = () => {
@@ -84,7 +87,7 @@ const Review = ({
         </button>
         <button
           className='bg-main w-[60%] h-16 text-white rounded-lg'
-          onClick={reviewSubmitHandler}
+          onClick={() => router.push("/ordered")}
         >
           {detailReviewIsSelected ? "그대로 제출하기" : "제출하기"}
         </button>
