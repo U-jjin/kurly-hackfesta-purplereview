@@ -19,7 +19,7 @@ const Home: NextPage = () => {
 
         <div className='w-full text-center mt-5 space-y-5'>
           <Link href={"/ordered"}>
-            <a className='w-[70%] bg-[#d1d5db] text-main font-bold py-5 text-2xl inline-block rounded-lg hover:bg-white'>
+            <a className='w-[70%] bg-[#d1d5db] text-main font-bold py-5 text-xl inline-block rounded-lg hover:bg-white'>
               리뷰 시작하기
             </a>
           </Link>
@@ -27,7 +27,7 @@ const Home: NextPage = () => {
           <a
             target='_black'
             href='http://kurlyreviewadmin.com/'
-            className='w-[70%] bg-[#d1d5db] text-main py-5 font-bold text-2xl inline-block rounded-lg hover:bg-white'
+            className='w-[70%] bg-[#d1d5db] text-main py-5 font-bold text-xl inline-block rounded-lg hover:bg-white'
           >
             관리자 페이지 둘러보기
           </a>
