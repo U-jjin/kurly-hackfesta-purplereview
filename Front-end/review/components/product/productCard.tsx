@@ -39,7 +39,10 @@ const ProductCard: React.FC<ProductCardProps> = ({
           </a>
         </Link>
         <div className='flex flex-col py-3 w-[75%]'>
-          <h3 className='text-sm text-black min-h-[45%] line-clamp-2'>
+          <h3
+            className='text-sm text-black min-h-[45%] line-clamp-2 hover:underline'
+            onClick={() => push(`/productDetail/${slug}`)}
+          >
             {title}
           </h3>
           <div>
